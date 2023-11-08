@@ -6,7 +6,7 @@ import com.lib.itemBiblioteca.ItemBiblioteca;
 public class Tese extends Item implements ItemBiblioteca {
 
     @Override
-    public void emprestar() {
+    public void usar() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'emprestar'");
     }

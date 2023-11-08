@@ -15,6 +15,10 @@ public abstract class Item {
         return emprestavel && quantidade > 1;
     }
 
+    public void emprestarItem() {
+        
+    }
+
     public enum ETipoItem {
         LIVRO,
         TESE,

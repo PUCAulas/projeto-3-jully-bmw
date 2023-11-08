@@ -5,8 +5,10 @@ import com.lib.itemBiblioteca.ItemBiblioteca;
 
 public class Cd extends Item implements ItemBiblioteca {
 
+    //TODO: fazer metodo de emprestar
+
     @Override
-    public void emprestar() {
+    public void usar() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'emprestar'");
     }

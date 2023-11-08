@@ -1,14 +1,18 @@
 package com.lib.usuario;
+import java.utils.*;
 
 public class Usuario {
     private String nome;
     private int qntItensEmprestados;
     private boolean isEmprestimoAtraso;
+    private List historicoDeItens<Item>;
+    private List itensEmEmprestismo<Item>
 
     public Usuario(String nome, int qntItensEmprestados, boolean isEmprestimoAtraso) {
         this.nome = nome;
         this.qntItensEmprestados = qntItensEmprestados;
         this.isEmprestimoAtraso = isEmprestimoAtraso;
+
     }
 
     public boolean pegarMaisUmItem() {
