@@ -5,6 +5,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import com.lib.estante.Cd;
+import com.lib.estante.Dvd;
+import com.lib.estante.Livro;
+import com.lib.estante.Revista;
+import com.lib.estante.Tese;
 import com.lib.item.Item;
 import com.lib.item.Item.ETipoItem;
 import com.lib.usuario.Usuario;
@@ -192,6 +197,15 @@ public class Biblioteca {
         return null;
     }
 
+    public Item buscarItemPorNome(String nomeItem) {
+        for (Item item : acervo) {
+            if (item.getTitulo().equalsIgnoreCase(nomeItem)) {
+                return item;
+            }
+        }
+        return null; // Retorna null se o item não for encontrado.
+    }
+
     public List<Item> getAcervo() {
         return acervo;
     }
@@ -235,7 +249,7 @@ public class Biblioteca {
         scannerEdicaoUser.close();
     }
 
-    public void deletarUsuario(String nomeUsuario) {
+    public void removeUsuario(String nomeUsuario) {
         Usuario usuarioParaRemover = null;
 
         for (Usuario usuario : usuarios) {
@@ -258,6 +272,118 @@ public class Biblioteca {
             System.out.println("Usuário removido com sucesso.");
         } else {
             System.out.println("Usuário não encontrado.");
+        }
+    }
+
+    // Itens
+    public void adicionarItem(Item item) {
+        acervo.add(item);
+    }
+
+    public Item criarItemComEntradaDoUsuario(Biblioteca biblioteca) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite o título do item: ");
+        String titulo = scanner.nextLine();
+
+        System.out.print("Digite o autor/editora/pesquisador/artista/diretor do item: ");
+        String autor = scanner.nextLine();
+
+        System.out.print("Digite o ano de publicação do item: ");
+        int anoPublicacao = scanner.nextInt();
+
+        System.out.println("Escolha o tipo de item:");
+        System.out.println("1. Livro");
+        System.out.println("2. Revista");
+        System.out.println("3. Tese");
+        System.out.println("4. CD");
+        System.out.println("5. DVD");
+
+        int escolhaTipo = scanner.nextInt();
+        scanner.nextLine(); // Consumir a nova linha após a leitura do número.
+
+        Item novoItem = null;
+
+        switch (escolhaTipo) {
+            case 1:
+                novoItem = new Livro(titulo, autor, anoPublicacao);
+                biblioteca.getAcervo().add(novoItem);
+                break;
+            case 2:
+                novoItem = new Revista(titulo, autor, anoPublicacao);
+                biblioteca.getAcervo().add(novoItem);
+                break;
+            case 3:
+                novoItem = new Tese(titulo, autor, anoPublicacao);
+                biblioteca.getAcervo().add(novoItem);
+                break;
+            case 4:
+                novoItem = new Cd(titulo, autor, anoPublicacao);
+                biblioteca.getAcervo().add(novoItem);
+                break;
+            case 5:
+                novoItem = new Dvd(titulo, autor, anoPublicacao);
+                biblioteca.getAcervo().add(novoItem);
+                break;
+            default:
+                System.out.println("Tipo de item inválido. Nenhum item foi criado.");
+        }
+
+        if (novoItem != null) {
+            System.out.println("Item criado com sucesso.");
+        }
+
+        return novoItem;
+    }
+
+    public void editarItem(Biblioteca biblioteca) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite o nome do item que deseja editar: ");
+        String nomeItem = scanner.nextLine();
+
+        Item itemParaEditar = biblioteca.buscarItemPorNome(nomeItem);
+
+        if (itemParaEditar != null) {
+            try (Scanner scannerEdicao = new Scanner(System.in)) {
+                System.out.print("Digite o novo título (atual: " + itemParaEditar.getTitulo() + "): ");
+                String novoTitulo = scannerEdicao.nextLine();
+
+                System.out.print("Digite o novo autor (atual: " + itemParaEditar.getAutor() + "): ");
+                String novoAutor = scannerEdicao.nextLine();
+
+                System.out
+                        .print("Digite o novo ano de publicação (atual: " + itemParaEditar.getAnoPublicacao() + "): ");
+                int novoAnoPublicacao = scannerEdicao.nextInt();
+
+                // Atualize os atributos do item existente com os novos valores.
+                itemParaEditar.setTitulo(novoTitulo);
+                itemParaEditar.setAutor(novoAutor);
+                itemParaEditar.setAnoPublicacao(novoAnoPublicacao);
+                System.out.println("Item editado com sucesso.");
+            }
+        } else {
+            System.out.println("Item não encontrado.");
+        }
+
+    }
+
+    public void removerItemPorNome(String nomeItem) {
+        Item itemParaRemover = null;
+
+        for (Item item : acervo) {
+            if (item.getTitulo().equalsIgnoreCase(nomeItem)) {
+                itemParaRemover = item;
+                break;
+            }
+        }
+
+        if (itemParaRemover != null) {
+            acervo.remove(itemParaRemover);
+            System.out.println("Item removido com sucesso.");
+        } else {
+            System.out.println("Item não encontrado.");
         }
     }
 

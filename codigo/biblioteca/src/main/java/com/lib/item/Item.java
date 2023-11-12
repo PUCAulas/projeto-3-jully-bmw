@@ -52,6 +52,34 @@ public abstract class Item {
         return qntdDeVezesEmprestado;
     }
 
+    public void setAnoPublicacao(int anoPublicacao) {
+        this.anoPublicacao = anoPublicacao;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public void setEmprestavel(boolean emprestavel) {
+        this.emprestavel = emprestavel;
+    }
+
+    public void setQntdDeVezesEmprestado(int qntdDeVezesEmprestado) {
+        this.qntdDeVezesEmprestado = qntdDeVezesEmprestado;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public void setTipo(ETipoItem tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
     public void atualizarQntdDeVezesEmprestado(int qntd) {
         this.qntdDeVezesEmprestado += qntd;
     }

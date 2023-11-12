@@ -17,10 +17,21 @@ public class App {
 
         Biblioteca biblioteca = new Biblioteca();
 
-        // biblioteca.getUsuarios().add(new Usuario("belle", 0, false));
-        // biblioteca.getUsuarios().add(new Usuario("jully", 0, false));
-        // biblioteca.getUsuarios().add(new Usuario("leo", 0, false));
-        // biblioteca.getUsuarios().add(new Usuario("maria", 0, false));
+        biblioteca.getUsuarios().add(new Usuario("belle", 0, false));
+        biblioteca.getUsuarios().add(new Usuario("jully", 0, false));
+        biblioteca.getUsuarios().add(new Usuario("leo", 0, false));
+        biblioteca.getUsuarios().add(new Usuario("maria", 0, false));
+
+        for (int i = 1; i <= 3; i++) {
+            biblioteca.getAcervo().add(new Livro("Livro " + i, "Autor " + i, 2000 + i *
+                    5));
+            biblioteca.getAcervo().add(new Revista("Revista " + i, "Editora " + i, 2010 +
+                    i * 3));
+            biblioteca.getAcervo().add(new Tese("Tese " + i, "Pesquisador " + i, 2015 +
+                    i));
+            biblioteca.getAcervo().add(new Cd("CD " + i, "Artista " + i, 2008 + i));
+            biblioteca.getAcervo().add(new Dvd("DVD " + i, "Diretor " + i, 2012 + i));
+        }
 
         while (true) {
             System.out.println("Escolha uma opção:");
@@ -37,23 +48,10 @@ public class App {
             switch (opcao) {
 
                 case 1:
-                    biblioteca.getUsuarios().add(new Usuario("belle", 0, false));
-                    biblioteca.getUsuarios().add(new Usuario("jully", 0, false));
-                    biblioteca.getUsuarios().add(new Usuario("leo", 0, false));
-                    biblioteca.getUsuarios().add(new Usuario("maria", 0, false));
                     subMenuUser(biblioteca);
                     break;
                 case 2:
-                    // for (int i = 1; i <= 3; i++) {
-                    // biblioteca.getAcervo().add(new Livro("Livro " + i, "Autor " + i, 2000 + i *
-                    // 5));
-                    // biblioteca.getAcervo().add(new Revista("Revista " + i, "Editora " + i, 2010 +
-                    // i * 3));
-                    // biblioteca.getAcervo().add(new Tese("Tese " + i, "Pesquisador " + i, 2015 +
-                    // i));
-                    // biblioteca.getAcervo().add(new Cd("CD " + i, "Artista " + i, 2008 + i));
-                    // biblioteca.getAcervo().add(new Dvd("DVD " + i, "Diretor " + i, 2012 + i));
-                    // }
+                    subMenuItem(biblioteca);
                     break;
                 case 3:
                     biblioteca.pesquisarItens();
@@ -101,10 +99,8 @@ public class App {
                     String nomeAluno = scanner.nextLine();
 
                     biblioteca.relatorioPorUsuario(nomeAluno);
-
                     break;
                 case 0:
-
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
@@ -149,7 +145,7 @@ public class App {
                     case 3:
                         System.out.print("Digite o nome do usuário que deseja deletar: ");
                         String nomeUsuario = scannerUser.nextLine();
-                        biblioteca.deletarUsuario(nomeUsuario);
+                        biblioteca.removeUsuario(nomeUsuario);
                         break;
                     case 0:
                         return;
@@ -161,4 +157,42 @@ public class App {
         }
     }
 
+    public static void subMenuItem(Biblioteca biblioteca) {
+        try (Scanner scannerItem = new Scanner(System.in)) {
+            while (true) {
+                System.out.println("Escolha uma opção de gerenciamento de itens:");
+                System.out.println("1. Adicionar iten");
+                System.out.println("2. Editar iten");
+                System.out.println("3. Deletar iten");
+                System.out.println("0. Voltar ao menu principal");
+
+                int opcaoSubMenuItem = scannerItem.nextInt();
+                scannerItem.nextLine(); // Consumir a nova linha após a leitura do número.
+
+                switch (opcaoSubMenuItem) {
+                    case 1:
+                        biblioteca.criarItemComEntradaDoUsuario(biblioteca);
+                        System.out.println("Novo item adicionado com sucesso!");
+
+                        break;
+                    case 2:
+                        biblioteca.editarItem(biblioteca);
+                        break;
+                    case 3:
+                        Scanner scanner = new Scanner(System.in);
+                        System.out.print("Digite o nome do item que deseja remover: ");
+                        String nomeItem = scanner.nextLine();
+
+                        biblioteca.removerItemPorNome(nomeItem);
+
+                        break;
+                    case 0:
+                        return;
+                    default:
+                        System.out.println("Opção inválida. Tente novamente.");
+                }
+                biblioteca.listarUsuarios();
+            }
+        }
+    }
 };
