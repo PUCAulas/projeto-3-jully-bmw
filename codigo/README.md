@@ -29,6 +29,9 @@ DVD: Título: DVD 3, Diretor: Diretor 3, Ano de Publicação: 2016
 ### Usuários
 
 Usuário: Nome: belle, Itens Emprestados: 0, Empréstimo Atrasado: false
+
 Usuário: Nome: jully, Itens Emprestados: 0, Empréstimo Atrasado: false
+
 Usuário: Nome: leo, Itens Emprestados: 0, Empréstimo Atrasado: false
+
 Usuário: Nome: maria, Itens Emprestados: 0, Empréstimo Atrasado: false
