@@ -199,4 +199,66 @@ public class Biblioteca {
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
+
+    public void adicionarUsuario(Usuario novoUsuario) {
+        usuarios.add(novoUsuario);
+    }
+
+    public void listarUsuarios() {
+        System.out.println("\nLista de Usuários na Biblioteca:");
+        for (Usuario usuario : usuarios) {
+            System.out.println("Nome do Usuário: " + usuario.getNome());
+        }
+        System.out.println("\n");
+    }
+
+    public void editarNomeDeUsuario() {
+        Scanner scannerEdicaoUser = new Scanner(System.in);
+
+        System.out.print("Digite o nome do usuário que deseja editar: ");
+        String nomeUsuario = scannerEdicaoUser.nextLine();
+        boolean usuarioEncontrado = false;
+        for (Usuario usuario : usuarios) {
+            if (usuario.getNome().equals(nomeUsuario)) {
+                System.out.print("Digite o novo nome: ");
+                String novoNome = scannerEdicaoUser.nextLine();
+
+                usuario.setNome(novoNome);
+                System.out.println("Nome do usuário editado com sucesso.");
+                usuarioEncontrado = true;
+                break; // Saia do loop após encontrar o usuário
+            }
+        }
+        if (!usuarioEncontrado) {
+            System.out.println("Usuário não encontrado. Tente novamente.");
+        }
+        scannerEdicaoUser.close();
+    }
+
+    public void deletarUsuario(String nomeUsuario) {
+        Usuario usuarioParaRemover = null;
+
+        for (Usuario usuario : usuarios) {
+            if (usuario.getNome().equals(nomeUsuario)) {
+                if (usuario.getQntItensEmprestados() != 0
+                        || usuario.isEmprestimoAtraso()
+                        || (usuario.getItensEmEmprestismo() instanceof ArrayList
+                                && !usuario.getItensEmEmprestismo().isEmpty())) {
+                    System.out.println("Não é possível deletar este usuário devido a restrições.");
+                    return;
+                }
+
+                usuarioParaRemover = usuario;
+                break;
+            }
+        }
+
+        if (usuarioParaRemover != null) {
+            usuarios.remove(usuarioParaRemover);
+            System.out.println("Usuário removido com sucesso.");
+        } else {
+            System.out.println("Usuário não encontrado.");
+        }
+    }
+
 }

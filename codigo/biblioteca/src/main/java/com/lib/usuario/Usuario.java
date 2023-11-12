@@ -51,4 +51,17 @@ public class Usuario {
     public void setEmprestimoAtraso(boolean emprestimoAtraso) {
         this.isEmprestimoAtraso = emprestimoAtraso;
     }
+
+    public List<Item> getItensEmEmprestismo() {
+        return itensEmEmprestismo;
+    }
+
+    public void setHistoricoDeItens(List<Item> historicoDeItens) {
+        this.historicoDeItens = historicoDeItens;
+    }
+
+    public void setItensEmEmprestismo(List<Item> itensEmEmprestismo) {
+        this.itensEmEmprestismo = itensEmEmprestismo;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.lib;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.lib.biblioteca.Biblioteca;
@@ -10,33 +11,21 @@ import com.lib.estante.Revista;
 import com.lib.estante.Tese;
 import com.lib.usuario.Usuario;
 
-/**
- * Hello world!
- *
- */
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         Biblioteca biblioteca = new Biblioteca();
 
-        for (int i = 1; i <= 3; i++) {
-            biblioteca.getAcervo().add(new Livro("Livro " + i, "Autor " + i, 2000 + i * 5));
-            biblioteca.getAcervo().add(new Revista("Revista " + i, "Editora " + i, 2010 + i * 3));
-            biblioteca.getAcervo().add(new Tese("Tese " + i, "Pesquisador " + i, 2015 + i));
-            biblioteca.getAcervo().add(new Cd("CD " + i, "Artista " + i, 2008 + i));
-            biblioteca.getAcervo().add(new Dvd("DVD " + i, "Diretor " + i, 2012 + i));
-        }
-
-        biblioteca.getUsuarios().add(new Usuario("belle", 0, false));
-        biblioteca.getUsuarios().add(new Usuario("jully", 0, false));
-        biblioteca.getUsuarios().add(new Usuario("leo", 0, false));
-        biblioteca.getUsuarios().add(new Usuario("maria", 0, false));
+        // biblioteca.getUsuarios().add(new Usuario("belle", 0, false));
+        // biblioteca.getUsuarios().add(new Usuario("jully", 0, false));
+        // biblioteca.getUsuarios().add(new Usuario("leo", 0, false));
+        // biblioteca.getUsuarios().add(new Usuario("maria", 0, false));
 
         while (true) {
             System.out.println("Escolha uma opção:");
-            System.out.println("1. Gerenciar itens");
-            System.out.println("2. Gerenciar usuários");
+            System.out.println("1. Gerenciar usuários");
+            System.out.println("2. Gerenciar itens");
             System.out.println("3. Pesquisar itens da biblioteca");
             System.out.println("4. Fazer empréstimo");
             System.out.println("5. Devolver empréstimo");
@@ -46,12 +35,25 @@ public class App {
             int opcao = scanner.nextInt();
 
             switch (opcao) {
-                case 1:
-                    // ger user
 
+                case 1:
+                    biblioteca.getUsuarios().add(new Usuario("belle", 0, false));
+                    biblioteca.getUsuarios().add(new Usuario("jully", 0, false));
+                    biblioteca.getUsuarios().add(new Usuario("leo", 0, false));
+                    biblioteca.getUsuarios().add(new Usuario("maria", 0, false));
+                    subMenuUser(biblioteca);
                     break;
                 case 2:
-                    // ger itens
+                    // for (int i = 1; i <= 3; i++) {
+                    // biblioteca.getAcervo().add(new Livro("Livro " + i, "Autor " + i, 2000 + i *
+                    // 5));
+                    // biblioteca.getAcervo().add(new Revista("Revista " + i, "Editora " + i, 2010 +
+                    // i * 3));
+                    // biblioteca.getAcervo().add(new Tese("Tese " + i, "Pesquisador " + i, 2015 +
+                    // i));
+                    // biblioteca.getAcervo().add(new Cd("CD " + i, "Artista " + i, 2008 + i));
+                    // biblioteca.getAcervo().add(new Dvd("DVD " + i, "Diretor " + i, 2012 + i));
+                    // }
                     break;
                 case 3:
                     biblioteca.pesquisarItens();
@@ -70,11 +72,11 @@ public class App {
                 case 0:
                     System.out.println("Finalizando atendimento... Até mais!");
                     System.exit(0);
+                    scanner.close();
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-            scanner.close();
         }
 
     }
@@ -115,4 +117,48 @@ public class App {
         scanner.close();
     };
 
-}
+    public static void subMenuUser(Biblioteca biblioteca) {
+        try (Scanner scannerUser = new Scanner(System.in)) {
+            while (true) {
+                System.out.println("Escolha uma opção de gerenciamento de usuários:");
+                System.out.println("1. Adicionar usuário");
+                System.out.println("2. Editar usuário");
+                System.out.println("3. Deletar usuário");
+                System.out.println("0. Voltar ao menu principal");
+
+                int opcaoSubMenuUsuario = scannerUser.nextInt();
+                scannerUser.nextLine(); // Consumir a nova linha após a leitura do número.
+
+                switch (opcaoSubMenuUsuario) {
+                    case 1:
+                        Scanner scannerUserAdd = new Scanner(System.in);
+
+                        System.out.print("Digite o nome do novo usuário: ");
+                        String nome = scannerUserAdd.nextLine();
+
+                        Usuario novoUsuario = new Usuario(nome, 0, false);
+                        biblioteca.adicionarUsuario(novoUsuario);
+
+                        System.out.println("Novo usuário adicionado com sucesso!");
+
+                        biblioteca.listarUsuarios();
+                        break;
+                    case 2:
+                        biblioteca.editarNomeDeUsuario();
+                        break;
+                    case 3:
+                        System.out.print("Digite o nome do usuário que deseja deletar: ");
+                        String nomeUsuario = scannerUser.nextLine();
+                        biblioteca.deletarUsuario(nomeUsuario);
+                        break;
+                    case 0:
+                        return;
+                    default:
+                        System.out.println("Opção inválida. Tente novamente.");
+                }
+                biblioteca.listarUsuarios();
+            }
+        }
+    }
+
+};
