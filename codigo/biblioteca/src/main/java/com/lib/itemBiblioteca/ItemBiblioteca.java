@@ -2,7 +2,7 @@ package com.lib.itemBiblioteca;
 
 public interface ItemBiblioteca {
 
-    public void usar();
+    public void emprestar();
 
     public void devolver();
 }

@@ -1,18 +1,23 @@
 package com.lib.usuario;
-import java.utils.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.lib.item.Item;
 
 public class Usuario {
     private String nome;
     private int qntItensEmprestados;
     private boolean isEmprestimoAtraso;
-    private List historicoDeItens<Item>;
-    private List itensEmEmprestismo<Item>
+    private List<Item> historicoDeItens;
+    private List<Item> itensEmEmprestismo;
 
     public Usuario(String nome, int qntItensEmprestados, boolean isEmprestimoAtraso) {
         this.nome = nome;
         this.qntItensEmprestados = qntItensEmprestados;
         this.isEmprestimoAtraso = isEmprestimoAtraso;
-
+        this.historicoDeItens = new ArrayList<>();
+        this.itensEmEmprestismo = new ArrayList<>();
     }
 
     public boolean pegarMaisUmItem() {
@@ -29,6 +34,10 @@ public class Usuario {
 
     public int getQntItensEmprestados() {
         return qntItensEmprestados;
+    }
+
+    public List<Item> getHistoricoDeItens() {
+        return historicoDeItens;
     }
 
     public void setQntItensEmprestados(int qntItensEmprestados) {

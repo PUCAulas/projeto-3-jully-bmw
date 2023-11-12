@@ -2,12 +2,13 @@ package com.lib.item;
 
 public abstract class Item {
 
-    private ETipoItem tipo;
-    private String titulo;
-    private String autor;
-    private int anoPublicacao;
-    private int quantidade;
-    private boolean emprestavel;
+    protected ETipoItem tipo;
+    protected String titulo;
+    protected String autor;
+    protected int anoPublicacao;
+    protected int quantidade;
+    protected int qntdDeVezesEmprestado;
+    protected boolean emprestavel;
 
     public abstract boolean isEmprestavel();
 
@@ -16,7 +17,7 @@ public abstract class Item {
     }
 
     public void emprestarItem() {
-        
+
     }
 
     public enum ETipoItem {
@@ -25,5 +26,33 @@ public abstract class Item {
         REVISTA,
         CD,
         DVD
+    }
+
+    public ETipoItem getTipo() {
+        return tipo;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public int getAnoPublicacao() {
+        return anoPublicacao;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public int getQntdDeVezesEmprestado() {
+        return qntdDeVezesEmprestado;
+    }
+
+    public void atualizarQntdDeVezesEmprestado(int qntd) {
+        this.qntdDeVezesEmprestado += qntd;
     }
 }
