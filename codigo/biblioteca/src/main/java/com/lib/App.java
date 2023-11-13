@@ -49,10 +49,10 @@ public class App {
             switch (opcao) {
 
                 case 1:
-                    subMenuUser(biblioteca);
+                    subMenuUser(biblioteca, scanner);
                     break;
                 case 2:
-                    subMenuItem(biblioteca);
+                    subMenuItem(biblioteca, scanner);
                     break;
                 case 3:
                     biblioteca.pesquisarItens();
@@ -109,7 +109,6 @@ public class App {
                     System.out.println("Opção inválida. Tente novamente.");
             }
         }
-
     }
 
     public static void subMenuRelatorio(Biblioteca biblioteca) {
@@ -146,61 +145,59 @@ public class App {
         scanner.close();
     };
 
-    public static void subMenuUser(Biblioteca biblioteca) {
-        try (Scanner scannerUser = new Scanner(System.in)) {
-            while (true) {
-                System.out.println("Escolha uma opção de gerenciamento de usuários:");
-                System.out.println("1. Adicionar usuário");
-                System.out.println("2. Editar usuário");
-                System.out.println("3. Deletar usuário");
-                System.out.println("0. Voltar ao menu principal");
+    public static void subMenuUser(Biblioteca biblioteca, Scanner scanner) {
+        while (true) {
+            System.out.println("Escolha uma opção de gerenciamento de usuários:");
+            System.out.println("1. Adicionar usuário");
+            System.out.println("2. Editar usuário");
+            System.out.println("3. Deletar usuário");
+            System.out.println("0. Voltar ao menu principal");
 
-                int opcaoSubMenuUsuario = scannerUser.nextInt();
-                scannerUser.nextLine(); // Consumir a nova linha após a leitura do número.
+            if (scanner.hasNextInt()) {
+                int opcaoSubMenuUsuario = scanner.nextInt();
 
                 switch (opcaoSubMenuUsuario) {
                     case 1:
-                        Scanner scannerUserAdd = new Scanner(System.in);
-
                         System.out.print("Digite o nome do novo usuário: ");
-                        String nome = scannerUserAdd.nextLine();
+                        String nome = scanner.next(); // Use next() em vez de nextLine() aqui
 
                         Usuario novoUsuario = new Usuario(nome, 0, false);
                         biblioteca.adicionarUsuario(novoUsuario);
 
                         System.out.println("Novo usuário adicionado com sucesso!");
-
                         biblioteca.listarUsuarios();
                         break;
                     case 2:
                         biblioteca.editarNomeDeUsuario();
+                        biblioteca.listarUsuarios();
                         break;
                     case 3:
                         System.out.print("Digite o nome do usuário que deseja deletar: ");
-                        String nomeUsuario = scannerUser.nextLine();
+                        String nomeUsuario = scanner.next();
                         biblioteca.removeUsuario(nomeUsuario);
+                        biblioteca.listarUsuarios();
                         break;
                     case 0:
                         return;
                     default:
                         System.out.println("Opção inválida. Tente novamente.");
+                        scanner.next();
                 }
-                biblioteca.listarUsuarios();
             }
         }
     }
 
-    public static void subMenuItem(Biblioteca biblioteca) {
-        try (Scanner scannerItem = new Scanner(System.in)) {
-            while (true) {
-                System.out.println("Escolha uma opção de gerenciamento de itens:");
-                System.out.println("1. Adicionar iten");
-                System.out.println("2. Editar iten");
-                System.out.println("3. Deletar iten");
-                System.out.println("0. Voltar ao menu principal");
+    public static void subMenuItem(Biblioteca biblioteca, Scanner scanner) {
 
-                int opcaoSubMenuItem = scannerItem.nextInt();
-                scannerItem.nextLine(); // Consumir a nova linha após a leitura do número.
+        while (true) {
+            System.out.println("Escolha uma opção de gerenciamento de itens:");
+            System.out.println("1. Adicionar iten");
+            System.out.println("2. Editar iten");
+            System.out.println("3. Deletar iten");
+            System.out.println("0. Voltar ao menu principal");
+
+            if (scanner.hasNextInt()) {
+                int opcaoSubMenuItem = scanner.nextInt();
 
                 switch (opcaoSubMenuItem) {
                     case 1:
@@ -209,23 +206,21 @@ public class App {
 
                         break;
                     case 2:
-                        biblioteca.editarItem(biblioteca);
+                        biblioteca.editarItem(biblioteca, scanner);
                         break;
                     case 3:
-                        Scanner scanner = new Scanner(System.in);
                         System.out.print("Digite o nome do item que deseja remover: ");
-                        String nomeItem = scanner.nextLine();
-
+                        String nomeItem = scanner.next();
                         biblioteca.removerItemPorNome(nomeItem);
-
                         break;
                     case 0:
                         return;
                     default:
                         System.out.println("Opção inválida. Tente novamente.");
+                        scanner.next();
                 }
-                biblioteca.listarUsuarios();
             }
+
         }
-    }
+    };
 };

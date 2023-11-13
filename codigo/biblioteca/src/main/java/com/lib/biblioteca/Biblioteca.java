@@ -228,26 +228,25 @@ public class Biblioteca {
     }
 
     public void editarNomeDeUsuario() {
-        Scanner scannerEdicaoUser = new Scanner(System.in);
+        try (Scanner scannerEdicaoUser = new Scanner(System.in)) {
+            System.out.print("Digite o nome do usuário que deseja editar: ");
+            String nomeUsuario = scannerEdicaoUser.nextLine();
+            boolean usuarioEncontrado = false;
+            for (Usuario usuario : usuarios) {
+                if (usuario.getNome().equals(nomeUsuario)) {
+                    System.out.print("Digite o novo nome: ");
+                    String novoNome = scannerEdicaoUser.nextLine();
 
-        System.out.print("Digite o nome do usuário que deseja editar: ");
-        String nomeUsuario = scannerEdicaoUser.nextLine();
-        boolean usuarioEncontrado = false;
-        for (Usuario usuario : usuarios) {
-            if (usuario.getNome().equals(nomeUsuario)) {
-                System.out.print("Digite o novo nome: ");
-                String novoNome = scannerEdicaoUser.nextLine();
-
-                usuario.setNome(novoNome);
-                System.out.println("Nome do usuário editado com sucesso.");
-                usuarioEncontrado = true;
-                break; // Saia do loop após encontrar o usuário
+                    usuario.setNome(novoNome);
+                    System.out.println("Nome do usuário editado com sucesso.");
+                    usuarioEncontrado = true;
+                    break; // Saia do loop após encontrar o usuário
+                }
+            }
+            if (!usuarioEncontrado) {
+                System.out.println("Usuário não encontrado. Tente novamente.");
             }
         }
-        if (!usuarioEncontrado) {
-            System.out.println("Usuário não encontrado. Tente novamente.");
-        }
-        scannerEdicaoUser.close();
     }
 
     public void removeUsuario(String nomeUsuario) {
@@ -337,33 +336,31 @@ public class Biblioteca {
         return novoItem;
     }
 
-    public void editarItem(Biblioteca biblioteca) {
-
-        Scanner scanner = new Scanner(System.in);
+    public void editarItem(Biblioteca biblioteca, Scanner scanner) {
 
         System.out.print("Digite o nome do item que deseja editar: ");
-        String nomeItem = scanner.nextLine();
+        String nomeItem = scanner.next();
 
         Item itemParaEditar = biblioteca.buscarItemPorNome(nomeItem);
 
         if (itemParaEditar != null) {
-            try (Scanner scannerEdicao = new Scanner(System.in)) {
-                System.out.print("Digite o novo título (atual: " + itemParaEditar.getTitulo() + "): ");
-                String novoTitulo = scannerEdicao.nextLine();
 
-                System.out.print("Digite o novo autor (atual: " + itemParaEditar.getAutor() + "): ");
-                String novoAutor = scannerEdicao.nextLine();
+            System.out.print("Digite o novo título (atual: " + itemParaEditar.getTitulo() + "): ");
+            String novoTitulo = scanner.next();
 
-                System.out
-                        .print("Digite o novo ano de publicação (atual: " + itemParaEditar.getAnoPublicacao() + "): ");
-                int novoAnoPublicacao = scannerEdicao.nextInt();
+            System.out.print("Digite o novo autor (atual: " + itemParaEditar.getAutor() + "): ");
+            String novoAutor = scanner.next();
 
-                // Atualize os atributos do item existente com os novos valores.
-                itemParaEditar.setTitulo(novoTitulo);
-                itemParaEditar.setAutor(novoAutor);
-                itemParaEditar.setAnoPublicacao(novoAnoPublicacao);
-                System.out.println("Item editado com sucesso.");
-            }
+            System.out
+                    .print("Digite o novo ano de publicação (atual: " + itemParaEditar.getAnoPublicacao() + "): ");
+            int novoAnoPublicacao = scanner.nextInt();
+
+            // Atualize os atributos do item existente com os novos valores.
+            itemParaEditar.setTitulo(novoTitulo);
+            itemParaEditar.setAutor(novoAutor);
+            itemParaEditar.setAnoPublicacao(novoAnoPublicacao);
+            System.out.println("Item editado com sucesso.");
+
         } else {
             System.out.println("Item não encontrado.");
         }
