@@ -1,5 +1,8 @@
 package com.lib.item;
 
+import com.lib.biblioteca.Biblioteca;
+import com.lib.usuario.Usuario;
+
 public abstract class Item {
 
     protected ETipoItem tipo;
@@ -14,10 +17,6 @@ public abstract class Item {
 
     public boolean podeSerEmprestado() {
         return emprestavel && quantidade > 1;
-    }
-
-    public void emprestarItem() {
-
     }
 
     public enum ETipoItem {
@@ -50,6 +49,34 @@ public abstract class Item {
 
     public int getQntdDeVezesEmprestado() {
         return qntdDeVezesEmprestado;
+    }
+
+    public void setAnoPublicacao(int anoPublicacao) {
+        this.anoPublicacao = anoPublicacao;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public void setEmprestavel(boolean emprestavel) {
+        this.emprestavel = emprestavel;
+    }
+
+    public void setQntdDeVezesEmprestado(int qntdDeVezesEmprestado) {
+        this.qntdDeVezesEmprestado = qntdDeVezesEmprestado;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public void setTipo(ETipoItem tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public void atualizarQntdDeVezesEmprestado(int qntd) {
