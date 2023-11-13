@@ -1,8 +1,5 @@
 package com.lib.item;
 
-import com.lib.biblioteca.Biblioteca;
-import com.lib.usuario.Usuario;
-
 public abstract class Item {
 
     protected ETipoItem tipo;

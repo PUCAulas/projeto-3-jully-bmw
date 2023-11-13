@@ -1,6 +1,5 @@
 package com.lib;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.lib.biblioteca.Biblioteca;
