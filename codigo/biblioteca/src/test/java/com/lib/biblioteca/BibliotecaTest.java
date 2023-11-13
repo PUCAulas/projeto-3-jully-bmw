@@ -1,6 +1,12 @@
+package com.lib.biblioteca;
+
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.lib.estante.Livro;
+import com.lib.item.Item;
+import com.lib.usuario.Usuario;
 
 public class BibliotecaTest {
 
@@ -13,15 +19,14 @@ public class BibliotecaTest {
 
     @Test
     public void testAdicionarUsuario() {
-        Usuario novoUsuario = new Usuario("Maria");
+        Usuario novoUsuario = new Usuario("maria", 0, false);
         biblioteca.adicionarUsuario(novoUsuario);
-
         assertTrue(biblioteca.getUsuarios().contains(novoUsuario));
     }
 
     @Test
     public void testBuscarUsuario() {
-        Usuario novoUsuario = new Usuario("Maria");
+        Usuario novoUsuario = new Usuario("Maria", 0, false);
         biblioteca.adicionarUsuario(novoUsuario);
 
         Usuario usuarioEncontrado = biblioteca.buscarUsuario("Maria");
@@ -30,7 +35,7 @@ public class BibliotecaTest {
 
     @Test
     public void testRemoverUsuario() {
-        Usuario novoUsuario = new Usuario("Maria");
+        Usuario novoUsuario = new Usuario("Maria", 0, false);
         biblioteca.adicionarUsuario(novoUsuario);
 
         biblioteca.removeUsuario("Maria");
@@ -65,32 +70,30 @@ public class BibliotecaTest {
 
     @Test
     public void testEmprestarItem() {
-        Usuario usuario = new Usuario("Maria");
+        Usuario usuario = new Usuario("Maria", 0, false);
         biblioteca.adicionarUsuario(usuario);
 
-        Item livro = new Livro("Olhai os Lírios do Campo", "Erico Verissimo", 2022, 2);
+        Item livro = new Livro("Olhai os Lírios do Campo", "Erico Verissimo", 2022);
         biblioteca.adicionarItem(livro);
-
+        
         biblioteca.emprestarItem(usuario, livro, biblioteca);
 
         assertTrue(usuario.getItensEmEmprestismo().contains(livro));
         assertEquals(1, livro.getQntdDeVezesEmprestado());
-        assertEquals(1, livro.getQuantidade());
     }
 
     @Test
     public void testDevolverItem() {
-        Usuario usuario = new Usuario("Maria");
+        Usuario usuario = new Usuario("Maria", 0, false);
         biblioteca.adicionarUsuario(usuario);
 
-        Item livro = new Livro("Olhai os Lírios do Campo", "Erico Verissimo", 2022, 2);
+        Item livro = new Livro("Olhai os Lírios do Campo", "Erico Verissimo", 2022);
         biblioteca.adicionarItem(livro);
 
         biblioteca.emprestarItem(usuario, livro, biblioteca);
         biblioteca.devolverItem(usuario, livro);
 
         assertFalse(usuario.getItensEmEmprestismo().contains(livro));
-        assertEquals(0, livro.getQuantidade());
     }
 
 }
