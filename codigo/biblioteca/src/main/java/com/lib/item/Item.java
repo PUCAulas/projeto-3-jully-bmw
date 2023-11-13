@@ -1,5 +1,8 @@
 package com.lib.item;
 
+import com.lib.biblioteca.Biblioteca;
+import com.lib.usuario.Usuario;
+
 public abstract class Item {
 
     protected ETipoItem tipo;
@@ -14,10 +17,6 @@ public abstract class Item {
 
     public boolean podeSerEmprestado() {
         return emprestavel && quantidade > 1;
-    }
-
-    public void emprestarItem() {
-
     }
 
     public enum ETipoItem {

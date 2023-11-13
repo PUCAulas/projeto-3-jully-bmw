@@ -188,7 +188,7 @@ public class Biblioteca {
         }
     }
 
-    private Usuario buscarUsuario(String nomeUsuario) {
+    public Usuario buscarUsuario(String nomeUsuario) {
         for (Usuario usuario : usuarios) {
             if (usuario.getNome().equals(nomeUsuario)) {
                 return usuario;
@@ -210,6 +210,7 @@ public class Biblioteca {
         return acervo;
     }
 
+    // Usuarios
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
@@ -384,6 +385,62 @@ public class Biblioteca {
             System.out.println("Item removido com sucesso.");
         } else {
             System.out.println("Item não encontrado.");
+        }
+    }
+
+    public void emprestarItem(Usuario usuario, Item itemParaEmprestar, Biblioteca biblioteca) {
+
+        if (itemParaEmprestar == null) {
+            System.out.println("Item não encontrado na biblioteca.");
+            return;
+        }
+
+        // Verifica se o usuário tem empréstimos em atraso
+        if (usuario.isEmprestimoAtraso()) {
+            System.out.println("Usuário com empréstimo em atraso. Não é possível pegar mais itens.");
+            return;
+        }
+
+        // Verifica se o usuário já atingiu o limite de itens emprestados (limite de 3)
+        if (usuario.getItensEmEmprestismo().size() >= 3) {
+            System.out.println("Usuário atingiu o limite de itens emprestados.");
+            return;
+        }
+
+        // Verifica se o item é emprestável
+        if (!itemParaEmprestar.isEmprestavel()) {
+            System.out.println("Este item não é emprestável.");
+            return;
+        }
+
+        // Verifica a quantidade disponível do item na biblioteca
+        if (itemParaEmprestar.getQuantidade() <= 0) {
+            System.out.println("Não há exemplares disponíveis para empréstimo deste item.");
+            return;
+        }
+
+        // Realiza o empréstimo
+        itemParaEmprestar.setQuantidade(itemParaEmprestar.getQuantidade() - 1); // Reduz a quantidade do item na
+                                                                                // biblioteca
+        itemParaEmprestar.atualizarQntdDeVezesEmprestado(1); // Incrementa o contador de empréstimos do item
+
+        // Atualiza a lista de itens emprestados pelo usuário
+        usuario.getItensEmEmprestismo().add(itemParaEmprestar);
+
+        System.out.println("Item emprestado com sucesso.");
+    }
+
+    public void devolverItem(Usuario usuario, Item itemDevolvido) {
+        if (itemDevolvido != null) {
+            // Remove o item da lista de itens emprestados pelo usuário
+            usuario.getItensEmEmprestismo().remove(itemDevolvido);
+
+            // Incrementa a quantidade do item na biblioteca
+            itemDevolvido.setQuantidade(itemDevolvido.getQuantidade() + 1);
+
+            System.out.println("Item devolvido com sucesso.");
+        } else {
+            System.out.println("Item não encontrado na lista de itens emprestados pelo usuário.");
         }
     }
 

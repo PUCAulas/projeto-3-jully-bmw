@@ -9,6 +9,7 @@ import com.lib.estante.Dvd;
 import com.lib.estante.Livro;
 import com.lib.estante.Revista;
 import com.lib.estante.Tese;
+import com.lib.item.Item;
 import com.lib.usuario.Usuario;
 
 public class App {
@@ -57,10 +58,42 @@ public class App {
                     biblioteca.pesquisarItens();
                     break;
                 case 4:
-                    // emprestar item
+                    Scanner scannerEmprestimo = new Scanner(System.in);
+
+                    System.out.print("Digite o nome do usuário: ");
+                    String nomeUser = scannerEmprestimo.nextLine();
+
+                    Usuario usuarioEmprestimo = biblioteca.buscarUsuario(nomeUser);
+
+                    System.out.print("Digite o nome do item que deseja emprestar: ");
+                    String nomeItem = scannerEmprestimo.nextLine();
+
+                    Item itemParaEmprestar = biblioteca.buscarItemPorNome(nomeItem);
+
+                    if (itemParaEmprestar != null) {
+                        biblioteca.emprestarItem(usuarioEmprestimo, itemParaEmprestar, biblioteca);
+                    } else {
+                        System.out.println("Item não encontrado na biblioteca.");
+                    }
                     break;
                 case 5:
-                    // devolver item
+                    Scanner scannerDevolucao = new Scanner(System.in);
+
+                    System.out.print("Digite o nome do usuário: ");
+                    String scUser = scannerDevolucao.nextLine();
+
+                    Usuario usuarioDevolucao = biblioteca.buscarUsuario(scUser);
+
+                    System.out.print("Digite o nome do item que deseja emprestar: ");
+                    String scItem = scannerDevolucao.nextLine();
+
+                    Item itemParaDevolucao = biblioteca.buscarItemPorNome(scItem);
+
+                    if (itemParaDevolucao != null) {
+                        biblioteca.devolverItem(usuarioDevolucao, itemParaDevolucao);
+                    } else {
+                        System.out.println("Item não encontrado na biblioteca.");
+                    }
                     break;
 
                 case 6:
