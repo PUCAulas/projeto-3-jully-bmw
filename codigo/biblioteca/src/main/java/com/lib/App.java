@@ -63,6 +63,8 @@ public class App {
                     System.out.print("Digite o nome do usuário: ");
                     String nomeUser = scannerEmprestimo.nextLine();
 
+                    biblioteca.relatorioPorItem();
+
                     Usuario usuarioEmprestimo = biblioteca.buscarUsuario(nomeUser);
 
                     System.out.print("Digite o nome do item que deseja emprestar: ");
@@ -97,7 +99,7 @@ public class App {
                     break;
 
                 case 6:
-                    subMenuRelatorio(biblioteca);
+                    subMenuRelatorio(biblioteca, scanner);
                     break;
 
                 case 0:
@@ -111,9 +113,7 @@ public class App {
         }
     }
 
-    public static void subMenuRelatorio(Biblioteca biblioteca) {
-        Scanner scanner = new Scanner(System.in);
-
+    public static void subMenuRelatorio(Biblioteca biblioteca, Scanner scanner) {
         while (true) {
             System.out.println("Escolha uma opção de relatório:");
             System.out.println("1. Por item");
@@ -137,12 +137,10 @@ public class App {
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-
             if (opcaoSubMenuRelatorio == 0) {
                 break;
             }
         }
-        scanner.close();
     };
 
     public static void subMenuUser(Biblioteca biblioteca, Scanner scanner) {

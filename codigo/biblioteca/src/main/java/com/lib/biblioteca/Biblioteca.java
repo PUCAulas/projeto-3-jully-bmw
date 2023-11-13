@@ -405,7 +405,7 @@ public class Biblioteca {
         }
 
         // Verifica se o item é emprestável
-        if (!itemParaEmprestar.isEmprestavel()) {
+        if (!itemParaEmprestar.podeSerEmprestado()) {
             System.out.println("Este item não é emprestável.");
             return;
         }
